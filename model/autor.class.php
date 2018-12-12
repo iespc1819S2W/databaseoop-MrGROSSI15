@@ -90,9 +90,26 @@ class Autor
 		}
     }   
     
-    public function update($data)
+    public function update($id_aut, $data)
     {
         // TODO
+        try
+		{
+            $result = array();
+			$sql = "UPDATE autors set nom_aut = '$data' WHERE ID_AUT like $id_aut ";                     
+			$stm = $this->conn->prepare($sql);
+            $stm->execute();
+            
+            // $tuples=$stm->fetch($data,$fk_nacionalitat);
+            $this->resposta->setDades($tuples);    // array de tuples
+			$this->resposta->setCorrecta(true);       // La resposta es correcta        
+            return $this->resposta;
+		}
+        catch(Exception $e)
+		{   // hi ha un error posam la resposta a fals i tornam missatge d'error
+			$this->resposta->setCorrecta(false, $e->getMessage());
+            return $this->resposta;
+		}
     }
 
     
@@ -100,6 +117,23 @@ class Autor
     public function delete($id)
     {
         // TODO
+        try
+		{
+            $result = array();
+			$sql = "DELETE FROM autors WHERE ID_AUT = $id";                     
+			$stm = $this->conn->prepare($sql);
+            $stm->execute();
+            
+            // $tuples=$stm->fetch($data,$fk_nacionalitat);
+            $this->resposta->setDades($tuples);    // array de tuples
+			$this->resposta->setCorrecta(true);       // La resposta es correcta        
+            return $this->resposta;
+		}
+        catch(Exception $e)
+		{   // hi ha un error posam la resposta a fals i tornam missatge d'error
+			$this->resposta->setCorrecta(false, $e->getMessage());
+            return $this->resposta;
+		}
     }
 
     public function filtra($where,$orderby,$offset,$count)

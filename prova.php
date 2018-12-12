@@ -3,8 +3,9 @@ $base = __DIR__;
  require_once("$base/model/autor.class.php");
  $autor=new Autor();
 //  $res=$autor->getAll();
-$res=$autor->get(6550);
-print_r($res);
+$res=$autor->update(6550,"GROSSI BERMEJO,MARC", "ITALIANO");
+// $res=$autor->get(6550);
+// print_r($res);
 echo "<br>";
  if ($res->correcta) {
     foreach ($res->dades as $row){
